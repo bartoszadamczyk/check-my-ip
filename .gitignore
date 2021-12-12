@@ -102,3 +102,12 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Optional eslint cache
+.eslintcache
+
+# MacOS
+.DS_Store
+
+# JetBrains
+.idea
