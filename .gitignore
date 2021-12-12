@@ -111,3 +111,7 @@ dist
 
 # JetBrains
 .idea
+
+# Terraform
+.terraform
+.terraform.lock.hcl

@@ -12,13 +12,13 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs14.x
   region: eu-west-2
   stage: prod
   memorySize: 128
   logRetentionInDays: 30
   lambdaHashingVersion: 20201221
-  deploymentBucket: ba-serverless-deployment-bucket-eu-west-2
+  deploymentBucket: ${ssm:serverless-deployment-bucket-name}
   apiGateway:
     restApiId: ${ssm:${self:custom.applicationBaseName}-api-id}
     restApiRootResourceId: ${ssm:${self:custom.applicationBaseName}-api-root-resource-id}
