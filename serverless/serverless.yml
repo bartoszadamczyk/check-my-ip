@@ -1,0 +1,35 @@
+service: check-my-ip
+
+custom:
+  applicationBaseName: ${self:service}-${self:provider.stage}
+  apiGatewayThrottling:
+    maxRequestsPerSecond: 1
+    maxConcurrentRequests: 1
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-api-gateway-throttling
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: eu-west-2
+  stage: prod
+  memorySize: 128
+  logRetentionInDays: 30
+  lambdaHashingVersion: 20201221
+  deploymentBucket: ba-serverless-deployment-bucket-eu-west-2
+  apiGateway:
+    restApiId: ${ssm:${self:custom.applicationBaseName}-api-id}
+    restApiRootResourceId: ${ssm:${self:custom.applicationBaseName}-api-root-resource-id}
+    shouldStartNameWithService: true
+  tags:
+    Project: ${self:service}
+functions:
+  check-my-ip:
+    handler: src/handler.checkMyIp
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
