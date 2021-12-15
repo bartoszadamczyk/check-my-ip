@@ -27,16 +27,16 @@ resource "aws_api_gateway_rest_api" "api" {
   }
 }
 
+#resource "aws_api_gateway_stage" "stage" {
+#  deployment_id = ""
+#  rest_api_id   = ""
+#  stage_name    = ""
+#}
+
 resource "aws_api_gateway_base_path_mapping" "mapping" {
   api_id      = aws_api_gateway_rest_api.api.id
   stage_name  = var.env
   domain_name = var.domain_name
-}
-
-resource "aws_api_gateway_stage" "stage" {
-  deployment_id = ""
-  rest_api_id   = ""
-  stage_name    = ""
 }
 
 resource "aws_ssm_parameter" "ssm_api_id" {
